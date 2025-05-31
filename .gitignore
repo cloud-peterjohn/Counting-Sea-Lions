@@ -4,9 +4,12 @@ model_ckpt/
 runs/
 SrcData/
 test_result/
-yolo_dataset_800/images/
-yolo_dataset_800/labels/
+processed_dataset/yolo_dataset_800/images/
+processed_dataset/yolo_dataset_800/labels/
 yolo_dataset_small/
 (113-2)FinalProject.pptx
 Tips_FinalProj_Presentation.pdf
 *.zip
+*.png
+*.jpg
+
