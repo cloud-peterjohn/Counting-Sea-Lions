@@ -1,5 +1,5 @@
 # Counting-Sea-Lions
-[NOAA Fisheries Steller Sea Lion Population Count](https://www.kaggle.com/c/noaa-fisheries-steller-sea-lion-population-count) by YOLO.
+[NOAA Fisheries Steller Sea Lion Population Count](https://www.kaggle.com/c/noaa-fisheries-steller-sea-lion-population-count) by [YOLO](https://docs.ultralytics.com/models/yolo11/).
 ![image](https://github.com/user-attachments/assets/9390ab5e-65bb-44bf-b825-66de5c7db4c9)
 
 # Background
