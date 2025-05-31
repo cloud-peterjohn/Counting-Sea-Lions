@@ -1,0 +1,10 @@
+train: /kaggle/input/sea-lion-yolo-800/yolo_dataset_800/images/train
+val: /kaggle/input/sea-lion-yolo-800/yolo_dataset_800/images/train
+nc: 5
+
+names:
+  0: 'adult_males'
+  1: 'subadult_males'
+  2: 'adult_females'
+  3: 'juveniles'
+  4: 'pups'
