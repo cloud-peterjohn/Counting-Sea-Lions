@@ -185,7 +185,7 @@ This augmentation strategy balances data diversity with task-specific requiremen
 ![image](https://github.com/user-attachments/assets/b9a477ca-b636-4545-8a3c-22737bd78bcc)
 
 **RMSE** on Kaggle
-- Score: 11.65312
+- Private Score: 11.65312
 - Public score: 11.68292
 
 **Rank**: 2nd place
