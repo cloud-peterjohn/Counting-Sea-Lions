@@ -1,11 +1,6 @@
 import os
 import torch
-import numpy as np
-import pandas as pd
 from ultralytics import YOLO
-from ultralytics.utils import LOGGER
-from functools import partial
-from ultralytics.models.yolo.detect.val import DetectionValidator
 
 DATASET_PATH = "/kaggle/input/sea-lion-yolo/yolo_dataset/dataset.yaml"
 VAL_IMG_DIR = "/kaggle/input/sea-lion-yolo/yolo_dataset/images/valid"
@@ -119,8 +114,8 @@ def resume_train(data_path, last_ckpt_path):
 
 
 if __name__ == "__main__":
-    # train_yolo(data_path=DATASET_PATH)
-    resume_train(
-        data_path=DATASET_PATH,
-        last_ckpt_path="/kaggle/input/sealion-epoch34/epoch34.pt",
-    )
+    train_yolo(data_path=DATASET_PATH)
+    # resume_train(
+    #     data_path=DATASET_PATH,
+    #     last_ckpt_path="/kaggle/input/sealion-epoch34/epoch34.pt",
+    # )

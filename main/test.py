@@ -6,6 +6,7 @@ import numpy as np
 from PIL import Image
 from ultralytics import YOLO
 import torch
+import pandas as pd
 
 
 def get_test_image_names(folder_path="SrcData/Test", verbose=False):
@@ -64,14 +65,15 @@ def divide_into_patches(image_name, image, patch_size, final_patch_size, verbose
 
 def test(
     test_image_folder="SrcData/Test",
-    patch_size=728,
+    patch_size=640,
     final_patch_size=640,
     verbose=True,
     CONFIDENCE_THRESHOLD=0.5,
     NMS_IOU_THRESHOLD=0.7,
     border_margin=5,
-    model_path="model_ckpt/epoch99.pt",
+    model_path="model_ckpt/epoch47.pt",
     output_dir="test_result",
+    submission_filename="submission.csv",
 ):
     sea_lion_class_name_map = {
         0: "adult_males",
@@ -111,7 +113,7 @@ def test(
     if hasattr(model, "model") and isinstance(model.model, torch.nn.Module):
         model.model.eval()
 
-    output_csv_file = os.path.join(output_dir, "submission.csv")
+    output_csv_file = os.path.join(output_dir, submission_filename)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
         if verbose:
@@ -176,9 +178,9 @@ def test(
                         ):  # Close to bottom edge
                             edges_on_border += 1
                         if edges_on_border == 1:
-                            count_value = 0.8
+                            count_value = 0.7
                         elif edges_on_border >= 2:
-                            count_value = 0.6
+                            count_value = 0.5
                         current_image_sea_lion_counts[class_name] += count_value
                     else:
                         print(
@@ -203,16 +205,78 @@ def test(
         print("All images processed successfully.")
 
 
+def check_test_ids(file_path="test_result/submission.csv"):
+    try:
+        df = pd.read_csv(file_path)
+        if "test_id" not in df.columns:
+            print("ERROR: 'test_id' column not found in CSV file")
+            print(f"Available columns: {list(df.columns)}")
+            return
+
+        all_ids = df["test_id"].dropna().astype(int).tolist()
+        existing_ids = set(all_ids)
+        duplicates = []
+        seen = set()
+
+        for test_id in all_ids:
+            if test_id in seen:
+                if test_id not in duplicates:
+                    duplicates.append(test_id)
+            else:
+                seen.add(test_id)
+
+        complete_range = set(range(0, 18636))
+        missing_ids = complete_range - existing_ids
+
+        print(f"CSV file contains {len(all_ids)} total entries")
+        print(f"CSV file contains {len(existing_ids)} unique test_ids")
+        print(f"Should have {len(complete_range)} test_ids (0-18635)")
+        print(f"Missing {len(missing_ids)} test_ids")
+        print(f"Found {len(duplicates)} duplicate test_ids")
+
+        if duplicates:
+            duplicates_sorted = sorted(duplicates)
+            print(f"\nDuplicate test_ids:")
+            print(duplicates_sorted)
+
+            print(f"\nDuplicate count details:")
+            for dup_id in duplicates_sorted:
+                count = all_ids.count(dup_id)
+                print(f"  test_id {dup_id}: appears {count} times")
+
+        if missing_ids:
+            missing_list = sorted(list(missing_ids))
+            print(f"\nMissing test_ids:")
+            print(missing_list)
+
+        if not missing_ids and not duplicates:
+            print("\n✅ All test_ids are present and unique!")
+        elif not missing_ids:
+            print("\n⚠️  All test_ids are present but some are duplicated!")
+        elif not duplicates:
+            print("\n⚠️  No duplicates found but some test_ids are missing!")
+        else:
+            print("\n❌ Both missing and duplicate test_ids found!")
+
+    except FileNotFoundError:
+        print(f"ERROR: File '{file_path}' not found")
+        print("Please check if the file path is correct")
+    except Exception as e:
+        print(f"ERROR occurred: {e}")
+
+
 if __name__ == "__main__":
     test(
         test_image_folder="SrcData/Test",
-        patch_size=1280,
+        patch_size=1440,
         final_patch_size=640,
         # verbose=True,
         verbose=False,
-        CONFIDENCE_THRESHOLD=0.26,
+        CONFIDENCE_THRESHOLD=0.22,
         NMS_IOU_THRESHOLD=0.7,
-        border_margin=4,
-        model_path="model_ckpt/epoch63.pt",
+        border_margin=8,
+        model_path="model_ckpt/epoch99.pt",
         output_dir="test_result",
+        submission_filename="submission(8).csv",
     )
+    check_test_ids("test_result/submission(8).csv")
