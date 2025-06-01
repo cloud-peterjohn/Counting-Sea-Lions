@@ -196,3 +196,97 @@ This augmentation strategy balances data diversity with task-specific requiremen
 - Rank5: 13.18968
 - Rank6: 13.92760
 
+# How to Run
+
+## Environment Setup
+
+### 1. Install Required Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Dataset Structure
+
+Organize your dataset as follows:
+```
+SrcData/
+├── Train/           # Original training images
+├── TrainDotted/     # Dotted training images  
+└── Test/            # Test images
+
+dataset/
+├── coords-threeplusone-v0.4.csv    # Annotation file
+└── MismatchedTrainImages.txt        # Images to skip
+```
+
+## Pipeline
+
+### Step 1: Data Preprocessing
+Run the preprocessing script to generate YOLO-format dataset:
+```bash
+cd main
+python pre-process-detection.py
+```
+
+This will:
+- Apply adaptive bounding box annotation
+- Generate image patches (1280×1280 → 640×640)
+- Convert annotations to YOLO format
+- Create train/validation split
+- Output dataset to `yolo_dataset_800/` directory
+
+### Step 2: Model Training
+
+Train the YOLO11x model:
+
+```bash
+python train.py
+```
+
+**Resume training** (if interrupted)
+```bash
+# Uncomment resume_train() in train.py and specify checkpoint path
+python train.py
+```
+
+### Step 3: Model Testing
+
+Run inference on test images:
+
+```bash
+python test.py
+```
+
+This will:
+- Load trained model from `model_ckpt/***.pt`
+- Process test images with patch-based inference
+- Apply border margin counting adjustments
+- Generate `test_result/submission.csv`
+
+### Step 4: Post-processing
+
+Apply final count adjustments:
+
+```bash
+python post-process.py
+```
+
+This applies class-specific multipliers:
+- `adult_males`: ×1.55
+- `subadult_males`: ×1.2
+- `adult_females`: ×0.96
+- `juveniles`: ×0.85
+- `pups`: ×1.3
+
+Output: `test_result/final_submission.csv`
+
+
+
+## Notes
+
+- Ensure CUDA is available for GPU acceleration
+- Training takes approximately 40 hours on NVIDIA P100 GPUs
+- The pipeline requires ~120GB storage for full dataset
+- Adjust batch size based on available GPU memory
+- For debugging, enable verbose mode in individual scripts
