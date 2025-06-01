@@ -3,7 +3,7 @@ dataset/TrainSmall2/
 model_ckpt/
 runs/
 SrcData/
-test_result/
+# test_result/
 processed_dataset/yolo_dataset_800/images/
 processed_dataset/yolo_dataset_800/labels/
 yolo_dataset_small/

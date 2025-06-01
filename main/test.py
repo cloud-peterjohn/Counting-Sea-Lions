@@ -266,17 +266,17 @@ def check_test_ids(file_path="test_result/submission.csv"):
 
 
 if __name__ == "__main__":
-    test(
-        test_image_folder="SrcData/Test",
-        patch_size=1440,
-        final_patch_size=640,
-        # verbose=True,
-        verbose=False,
-        CONFIDENCE_THRESHOLD=0.22,
-        NMS_IOU_THRESHOLD=0.7,
-        border_margin=8,
-        model_path="model_ckpt/epoch99.pt",
-        output_dir="test_result",
-        submission_filename="submission(8).csv",
-    )
+    # test(
+    #     test_image_folder="SrcData/Test",
+    #     patch_size=1440,
+    #     final_patch_size=640,
+    #     # verbose=True,
+    #     verbose=False,
+    #     CONFIDENCE_THRESHOLD=0.22,
+    #     NMS_IOU_THRESHOLD=0.7,
+    #     border_margin=8,
+    #     model_path="model_ckpt/epoch99.pt",
+    #     output_dir="test_result",
+    #     submission_filename="submission.csv",
+    # )
     check_test_ids("test_result/submission(8).csv")

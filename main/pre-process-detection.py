@@ -894,10 +894,10 @@ if __name__ == "__main__":
         box_size_preprocess=55,
         bbox_rate_min=0.5,
         val_split_ratio=0.05,  # Validation split ratio
-        patch_size_getpatches=800,  # Patch size
+        patch_size_getpatches=1280,  # Patch size
         min_select_getpatches=1,  # Min patches from bboxes (per oversample image)
         max_select_num=3,  # Max patches from bboxes (per oversample image)
-        drop_zero_bbox_rate=0.75,  # Rate to drop patches with no bboxes
+        drop_zero_bbox_rate=0.7,  # Rate to drop patches with no bboxes
         black_pixel_threshold_getpatches=0.5,  # Max black pixel ratio for a patch
         visualize_final_samples=False,  # Whether to show samples at the end
         num_samples_to_visualize=16,  # How many samples to show (if visualize_final_samples is True)
