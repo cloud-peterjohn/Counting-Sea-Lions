@@ -3,7 +3,7 @@ dataset/TrainSmall2/
 model_ckpt/
 runs/
 SrcData/
-test_results/
+# test_results/
 processed_dataset/yolo_dataset_800/images/
 processed_dataset/yolo_dataset_800/labels/
 yolo_dataset_small/
@@ -12,5 +12,3 @@ Tips_FinalProj_Presentation.pdf
 *.zip
 *.png
 *.jpg
-test_results/final_submission.csv
-test_results/submission.csv
