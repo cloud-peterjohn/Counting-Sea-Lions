@@ -1,6 +1,7 @@
 dataset/Train/
 dataset/TrainSmall2/
-model_ckpt/
+model_ckpt/epoch63.pt
+model_ckpt/epoch47.pt
 runs/
 SrcData/
 # test_results/
