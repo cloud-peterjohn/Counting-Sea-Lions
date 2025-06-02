@@ -198,7 +198,7 @@ This augmentation strategy balances data diversity with task-specific requiremen
 
 ![results_00](https://github.com/user-attachments/assets/9a121c1f-be1a-4b21-bf84-11e6d2e9e4d7)
 
-**More Analysis**
+**More Analysis**:
 ![Visualize_00](https://github.com/user-attachments/assets/73c60fb0-6598-4bf0-ac56-3f000c9edc7e)
 
 
