@@ -196,6 +196,9 @@ This augmentation strategy balances data diversity with task-specific requiremen
 - Rank5: 13.18968
 - Rank6: 13.92760
 
+![results_00](https://github.com/user-attachments/assets/9a121c1f-be1a-4b21-bf84-11e6d2e9e4d7)
+
+
 # How to Run
 
 ## Environment Setup
